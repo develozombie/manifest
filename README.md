@@ -1,5 +1,5 @@
 # Manifest
-
+![.NET](https://github.com/jyapurv/manifest/workflows/.NET/badge.svg)
 Manifest is a project to help you generate the Azure AD App Roles Manifest to register your own application roles, this is something that will help you generate the exact required JSON structure as specified in [Azure Docs](https://docs.microsoft.com/en-us/azure/active-directory/develop/reference-app-manifest#manifest-reference) this project has been designed to run as Azure Function, install instructions bellow.
 
 ## Installation
