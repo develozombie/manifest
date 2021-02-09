@@ -27,26 +27,31 @@ namespace joyapu.Function
             //Obtiene datos del request
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             //Deserializa el Body en una Lista de JsonItem
-            dynamic jsonItems = JsonSerializer.Deserialize<List<JsonItem>>(requestBody);
-            foreach (var item in jsonItems)
+            try
             {
-                item.RoleGuid = Guid.NewGuid().ToString();
-                listItems.Add(
-                    new AppRoles{
-                        allowedMemberTypes = new string[]{"User"},
-                        displayName = item.RoleName,
-                        id = item.RoleGuid,
-                        isEnabled = true,
-                        description = item.RoleDescription,
-                        value = item.RoleName.Replace(" ", "_").ToLower()
-                });
+                dynamic jsonItems = JsonSerializer.Deserialize<List<JsonItem>>(requestBody);
+                foreach (var item in jsonItems)
+                {
+                    listItems.Add(
+                        new AppRoles{
+                            allowedMemberTypes = new string[]{"User"},
+                            displayName = item.RoleName,
+                            id = Guid.NewGuid().ToString(),
+                            isEnabled = true,
+                            description = item.RoleDescription,
+                            value = item.RoleName.Replace(" ", "_").ToLower()
+                    });
+                }
+                //req.HttpContext.Response.Headers.Add("Content-Type", "application/json");
+                string jsonBody = JsonSerializer.Serialize(listItems);
+                return new OkObjectResult(jsonBody);
             }
-            //req.HttpContext.Response.Headers.Add("Content-Type", "application/json");
-            string jsonBody = JsonSerializer.Serialize(listItems);
-            string responseMessage = string.IsNullOrEmpty(jsonBody)
-                ? "Error"
-                : jsonBody;
-            return new OkObjectResult(responseMessage);
+            catch (System.Exception)
+            {
+
+                return new BadRequestObjectResult("Error: Revise la estructura JSON");
+                throw;
+            }
         }
     }
 
@@ -54,7 +59,6 @@ namespace joyapu.Function
     {
         public string RoleName { get; set; }
         public string RoleDescription { get; set; }
-        public string RoleGuid { get; set; }
     }
 
     public class AppRoles
