@@ -22,8 +22,8 @@ namespace joyapu.Function
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
-            //Crea lista de Json Item para guardar elementos con Guid Generados
-            List<JsonItem> listItems = new List<JsonItem>();
+            //Crea lista de AppRoles para guardar elementos con Guid Generados
+            List<AppRoles> listItems = new List<AppRoles>();
             //Obtiene datos del request
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             //Deserializa el Body en una Lista de JsonItem
@@ -31,7 +31,15 @@ namespace joyapu.Function
             foreach (var item in jsonItems)
             {
                 item.RoleGuid = Guid.NewGuid().ToString();
-                listItems.Add(item);
+                listItems.Add(
+                    new AppRoles{
+                        allowedMemberTypes = new string[]{"User"},
+                        displayName = item.RoleName,
+                        id = item.RoleGuid,
+                        isEnabled = true,
+                        description = item.RoleDescription,
+                        value = item.RoleName.Replace(" ", "_").ToLower()
+                });
             }
             //req.HttpContext.Response.Headers.Add("Content-Type", "application/json");
             string jsonBody = JsonSerializer.Serialize(listItems);
@@ -47,5 +55,15 @@ namespace joyapu.Function
         public string RoleName { get; set; }
         public string RoleDescription { get; set; }
         public string RoleGuid { get; set; }
+    }
+
+    public class AppRoles
+    {
+        public string[] allowedMemberTypes { get; set; }
+        public string displayName { get; set; }
+        public string id { get; set; }
+        public bool isEnabled { get; set; }
+        public string description { get; set; }
+        public string value { get; set; }
     }
 }
