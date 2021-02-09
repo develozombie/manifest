@@ -6,30 +6,46 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
 
 namespace joyapu.Function
 {
     public static class GenerateManifest
     {
+        
         [FunctionName("GenerateManifest")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
-
-            string name = req.Query["name"];
-
+            //Crea lista de Json Item para guardar elementos con Guid Generados
+            List<JsonItem> listItems = new List<JsonItem>();
+            //Obtiene datos del request
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
-
-            string responseMessage = string.IsNullOrEmpty(name)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {name}. This HTTP triggered function executed successfully.";
-
+            //Deserializa el Body en una Lista de JsonItem
+            dynamic jsonItems = JsonSerializer.Deserialize<List<JsonItem>>(requestBody);
+            foreach (var item in jsonItems)
+            {
+                item.RoleGuid = Guid.NewGuid().ToString();
+                listItems.Add(item);
+            }
+            //req.HttpContext.Response.Headers.Add("Content-Type", "application/json");
+            string jsonBody = JsonSerializer.Serialize(listItems);
+            string responseMessage = string.IsNullOrEmpty(jsonBody)
+                ? "Error"
+                : jsonBody;
             return new OkObjectResult(responseMessage);
         }
+    }
+
+    public class JsonItem
+    {
+        public string RoleName { get; set; }
+        public string RoleDescription { get; set; }
+        public string RoleGuid { get; set; }
     }
 }
