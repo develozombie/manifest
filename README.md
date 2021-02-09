@@ -66,55 +66,27 @@ In the Manifest you will find, around line 8, the "appRoles":[] definition will 
 	"allowPublicClient": false,
 	"appId": "0ad6689e-f680-4cbb-ba57-0fd00b53d89e",
 	"appRoles": [
-		{
-			"allowedMemberTypes": [
-				"User"
-			],
-			"description": "Admins can manage roles and perform all task actions.",
-			"displayName": "Admin",
-			"id": "81e10148-16a8-432a-b86d-ef620c3e48ef",
-			"isEnabled": true,
-			"lang": null,
-			"origin": "Application",
-			"value": "Admin"
-		},
-		{
-			"allowedMemberTypes": [
-				"User"
-			],
-			"description": "Approvers have the ability to change the status of tasks.",
-			"displayName": "Approver",
-			"id": "fc803414-3c61-4ebc-a5e5-cd1675c14bbb",
-			"isEnabled": true,
-			"lang": null,
-			"origin": "Application",
-			"value": "Approver"
-		},
-		{
-			"allowedMemberTypes": [
-				"User"
-			],
-			"description": "Observers only have the ability to view tasks and their statuses.",
-			"displayName": "Observer",
-			"id": "fcac0bdb-e45d-4cfc-9733-fbea156da358",
-			"isEnabled": true,
-			"lang": null,
-			"origin": "Application",
-			"value": "Observer"
-		},
-		{
-			"allowedMemberTypes": [
-				"User"
-			],
-			"description": "Writers Have the ability to create tasks.",
-			"displayName": "Writer",
-			"id": "d1c2ade8-98f8-45fd-aa4a-6d06b947c66f",
-			"isEnabled": true,
-			"lang": null,
-			"origin": "Application",
-			"value": "Writer"
-		}
-	],
+        {
+            "allowedMemberTypes": [
+            "User"
+            ],
+            "displayName": "admin",
+            "id": "42f3dedb-b96c-419a-bbd8-3122dce4daf5",
+            "isEnabled": true,
+            "description": "Este rol tiene la función de administrar el acceso a los usuarios de App.User.*",
+            "value": "admin"
+        },
+        {
+            "allowedMemberTypes": [
+            "User"
+            ],
+            "displayName": "lector de mensajes",
+            "id": "267071eb-8b82-4699-882f-5892eca2a08e",
+            "isEnabled": true,
+            "description": "este rol tiene la funcion de bla bla bla bla",
+            "value": "lector_de_mensajes"
+        }
+    ],
 	"oauth2AllowUrlPathMatching": false,
 	"createdDateTime": "2017-05-12T22:14:12Z",
 	"disabledByMicrosoftStatus": null,
