@@ -11,6 +11,11 @@ div.column50 {
 div.inputText{
     margin: 5px;
     padding: 5px;
+    
+}
+textarea
+{
+    width: 100%;
 }
 
 .col-container {

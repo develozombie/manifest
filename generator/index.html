@@ -7,20 +7,18 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="highlight/styles/default.css">
     <script src="highlight/highlight.pack.js"></script>
-
-
 </head>
 
 <body>
 <h1>App Roles Manifest Generator</h1>
-<div class="col">
+
     <div class="inputText">
         <label for="inputText">Your Json input
             <br><textarea id="inputText" rows="20" cols="50"></textarea>
         </label>
-        <br><button id="run">Run</button>
+        <br><button id="run">Generate</button>
     </div>
-</div><br>
+<br>
 <div id="result" class="col1">
     <div class="col1">Input<pre><code id="start" class="json"></code></pre></div>
     <div class="col1">App Roles Output<pre><code id="end" class="json"></code></pre></div>
@@ -36,17 +34,10 @@
         return formattedText;
     }
 
-    function callService(text) {
-        
-       // aqui todo el codigo para llamar al servicio, devolver el response como texto
-
-    }
-
     $('#run').click(function(){
         $("div:hidden").show("slow");
-        $('#start').text(prettyFy($('#inputText').val()));
         $.ajax({
-            url: 'https://pe-generatemanifest.azurewebsites.net/api/GenerateManifest?code=ZE/xBuXakIgXeIGeVXwa2qOkgG95DUiN7jnBcdJJKTiUb7lFaB8Q/A==',
+            url: 'https://pe-generatemanifest.azurewebsites.net/api/GenerateManifest',
             type: 'post',
             contentType: "application/json; charset=utf-8",
             data: $('#inputText').val(),
@@ -57,12 +48,14 @@
             dataType: 'text',
             success: function (data) {
                 $('#end').text(prettyFy(data));
+            },
+            error: function(){
+                $('#end').text("Error, review your JSON input");
             }
         });
+        $('#start').text(prettyFy($('#inputText').val()));
         hljs.highlightBlock(document.getElementById("start"));
         hljs.highlightBlock(document.getElementById("end"));
     });
-
 </script>
-
 </html>
