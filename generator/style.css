@@ -1,0 +1,28 @@
+body{
+    font-family: 'Courier New', Courier, monospace;
+}
+div.column50 {
+    float: left;
+    width: 40%;
+    margin: 5%;
+    border: 3px outset green;
+}
+
+div.inputText{
+    margin: 5px;
+    padding: 5px;
+}
+
+.col-container {
+    display: table; /* Make the container element behave like a table */
+    width: 100%; /* Set full-width to expand the whole page */
+}
+
+.col {
+    display: table-cell; /* Make elements inside the container behave like table cells */
+    padding: 5px;
+}
+.col1 {
+    display: none;
+    border: 3px outset green;
+}
