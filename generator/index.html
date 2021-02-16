@@ -13,10 +13,10 @@
 <h1>App Roles Manifest Generator</h1>
 
     <div class="inputText">
-        <label for="inputText">Your Json input
-            <br><textarea id="inputText" rows="20" cols="50"></textarea>
+        <label for="inputText">Your Json input</br></br>
+            <textarea id="inputText" rows="20" cols="50"></textarea>
         </label>
-        <br><button id="run">Generate</button>
+        <br><button id="example" class="myButton">1-Generate demo payload</button> <button id="run" class="myButton">2-Send Request</button>
     </div>
 <br>
 <div id="result" class="col1">
@@ -33,7 +33,10 @@
         var formattedText = JSON.stringify(objJson, null, 2);
         return formattedText;
     }
-
+    $('#example').click(function(){
+        var example = [{RoleName:'admin', RoleDescription:'Este rol tiene la función de administrar el acceso a los usuarios de App.User.*'},{RoleName:'lector de mensajes', RoleDescription:'Este rol tiene la opcion de leer mensajes de prueba'}]
+        $('#inputText').val(JSON.stringify(example));
+    });
     $('#run').click(function(){
         $("div:hidden").show("slow");
         $.ajax({
