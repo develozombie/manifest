@@ -2,9 +2,9 @@ name: Blob storage website CI
 
 on:
     push:
-        branches: [ master ]
+        branches: [ main ]
     pull_request:
-        branches: [ master ]
+        branches: [ main ]
 
 jobs:
   build:
@@ -20,7 +20,7 @@ jobs:
       with:
         azcliversion: 2.0.72
         inlineScript: |
-            az storage blob upload-batch --account-name stgmanifest -d '$web' -s .
+            az storage blob upload-batch --account-name stgmanifest -d '$web' -s generator
   # Azure logout 
     - name: logout
       run: |
