@@ -53,6 +53,7 @@
             dataType: 'text',
             success: function (data) {
                 $('#end').text(prettyFy(data));
+                hljs.highlightBlock(document.getElementById("end"));
             },
             error: function(){
                 $('#end').text("Error, review your JSON input");
