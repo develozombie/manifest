@@ -36,8 +36,10 @@
     $('#example').click(function(){
         var example = [{RoleName:'admin', RoleDescription:'Este rol tiene la función de administrar el acceso a los usuarios de App.User.*'},{RoleName:'lector de mensajes', RoleDescription:'Este rol tiene la opcion de leer mensajes de prueba'}]
         $('#inputText').val(JSON.stringify(example));
+        $("#result").hide("slow");
     });
     $('#run').click(function(){
+        $('#end').text("");
         $("div:hidden").show("slow");
         $.ajax({
             url: 'https://pe-generatemanifest.azurewebsites.net/api/GenerateManifest',
