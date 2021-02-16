@@ -1,4 +1,4 @@
-name: Blob storage website CI
+name: Deployed to Manifest as a Service
 
 on:
     push:
